@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ubuntu:22.04
 
 ENV GITHUB_PAT ""
 ENV GITHUB_TOKEN ""
@@ -6,7 +6,7 @@ ENV GITHUB_OWNER ""
 ENV GITHUB_REPOSITORY ""
 ENV RUNNER_WORKDIR "_work"
 ENV RUNNER_LABELS ""
-ENV ADDITIONAL_PACKAGES ""
+ENV DEBIAN_FRONTEND "noninteractive"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -15,6 +15,17 @@ RUN apt-get update \
         git \
         jq \
         iputils-ping \
+        build-essential \
+        python3 \
+        python3-tornado \
+        python3-requests \
+        python3-yaml \
+        gawk \
+        bc \
+        valgrind \
+        strace \
+        iproute2 \
+        libssl-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m github \
